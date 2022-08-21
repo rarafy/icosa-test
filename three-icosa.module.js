@@ -264,6 +264,10 @@ class TiltShaderLoader extends Loader {
             case "Smoke":
             case "70d79cca-b159-4f35-990c-f02193947fe8":
                 return "Smoke";
+
+            case "ZeshiSmoke":
+            case "cbea1d98-fa37-418a-9d5e-565929d690cf":
+                return "ZeshiSmoke";
             
             case "Snow":
             case "d902ed8b-d0d1-476c-a8de-878a79e3a34c":
@@ -1231,6 +1235,22 @@ const tiltBrushMaterialParams = {
         },
         vertexShader: "Smoke-70d79cca-b159-4f35-990c-f02193947fe8/Smoke-70d79cca-b159-4f35-990c-f02193947fe8-v10.0-vertex.glsl",
         fragmentShader: "Smoke-70d79cca-b159-4f35-990c-f02193947fe8/Smoke-70d79cca-b159-4f35-990c-f02193947fe8-v10.0-fragment.glsl",
+        side: 2,
+        transparent: true,
+        depthFunc: 2,
+        depthWrite: false,
+        depthTest: true,
+        blending: 2
+    },
+    "ZeshiSmoke": {
+        uniforms: {
+            u_SceneLight_0_matrix: { value: [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1] },
+            u_SceneLight_1_matrix: { value: [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1] },
+            u_TintColor: { value: new Vector4(1, 1, 1, 1) },
+            u_MainTex: { value: "ZeshiSmoke-cbea1d98-fa37-418a-9d5e-565929d690cf/ZeshiSmoke-cbea1d98-fa37-418a-9d5e-565929d690cf-v10.0-MainTex.png" }
+        },
+        vertexShader: "ZeshiSmoke-cbea1d98-fa37-418a-9d5e-565929d690cf/ZeshiSmoke-cbea1d98-fa37-418a-9d5e-565929d690cf-v10.0-vertex.glsl",
+        fragmentShader: "ZeshiSmoke-cbea1d98-fa37-418a-9d5e-565929d690cf/ZeshiSmoke-cbea1d98-fa37-418a-9d5e-565929d690cf-v10.0-fragment.glsl",
         side: 2,
         transparent: true,
         depthFunc: 2,
@@ -2274,6 +2294,20 @@ class GLTFGoogleTiltBrushMaterialExtension {
                 shader.uniformsNeedUpdate = true;
                 mesh.material = shader;
                 mesh.material.name = "material_Smoke";
+                break;
+
+            case "cbea1d98-fa37-418a-9d5e-565929d690cf":
+                mesh.geometry.name = "geometry_ZeshiSmoke";
+                mesh.geometry.setAttribute("a_position", mesh.geometry.getAttribute("position"));
+                mesh.geometry.setAttribute("a_normal", mesh.geometry.getAttribute("_tb_unity_normal"));
+                mesh.geometry.setAttribute("a_color", mesh.geometry.getAttribute("color"));
+                mesh.geometry.setAttribute("a_texcoord0", mesh.geometry.getAttribute("_tb_unity_texcoord_0"));
+                mesh.geometry.setAttribute("a_texcoord1", mesh.geometry.getAttribute("_tb_unity_texcoord_1"));
+                shader = await this.tiltShaderLoader.loadAsync("ZeshiSmoke");
+                shader.lights = true;
+                shader.uniformsNeedUpdate = true;
+                mesh.material = shader;
+                mesh.material.name = "material_ZeshiSmoke";
                 break;
 
             case "d902ed8b-d0d1-476c-a8de-878a79e3a34c":
